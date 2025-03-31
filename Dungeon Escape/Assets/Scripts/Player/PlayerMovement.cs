@@ -1,6 +1,7 @@
 using UnityEngine;
+using UnityEngine.Rendering.Universal;
 
-public class PlayerMovement : MonoBehaviour
+public class PlayerMovement : MonoBehaviour, IDamageable
 {
     Rigidbody2D _rb;
     PlayerAnimation _playerAnim;
@@ -13,11 +14,15 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] Vector2 _boxSize;
     [SerializeField] float _castDistance;
 
+    public int _diamonds = 0;
+
+    public int Health {  get; set; }
 
     void Start()
     {
         _rb = GetComponent<Rigidbody2D>();
         _playerAnim = GetComponent<PlayerAnimation>();
+        Health = 4;
     }
 
     void Update()
@@ -84,5 +89,25 @@ public class PlayerMovement : MonoBehaviour
     private void OnDrawGizmos()
     {
         Gizmos.DrawWireCube(transform.position - transform.up * _castDistance, _boxSize);
+    }
+
+    public void AddGems(int amount)
+    {
+        _diamonds += amount;
+        UIManager.Instance.UpdateGemCount(_diamonds);
+    }
+
+    public void Damage()
+    {
+        if ( Health < 1)
+        {
+            return;
+        }
+        Health--;
+        UIManager.Instance.UpdateLives(Health);
+        if ( Health < 1 )
+        {
+            _playerAnim.DeathAnim();
+        }
     }
 }
