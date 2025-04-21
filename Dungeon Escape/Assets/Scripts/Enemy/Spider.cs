@@ -7,6 +7,7 @@ public class Spider : Enemy, IDamageable
     public int Health { get; set; }
     [SerializeField] GameObject _acidPrefab;
     Queue<GameObject> AcidPool;
+    [SerializeField] float _acidDestroyTime = 5f;
 
     // Use for initialization
     public override void Init()
@@ -21,7 +22,7 @@ public class Spider : Enemy, IDamageable
         GameObject acidParent = new GameObject("Acid Prefab");
         for ( int i = 0; i < 5; i++)
         {
-            GameObject acid = Instantiate(_acidPrefab, transform.position, Quaternion.identity);
+            GameObject acid = Instantiate(_acidPrefab, transform.position, transform.rotation);
             acid.SetActive(false);
             AcidPool.Enqueue(acid);
             acid.transform.SetParent(acidParent.transform, true); 
@@ -45,7 +46,7 @@ public class Spider : Enemy, IDamageable
         {
             anim.SetTrigger("Death");
             GameObject diamond = Instantiate(diamondPrefab, transform.position, Quaternion.identity);
-            diamond.GetComponent<Diamond>().gems = 3;
+            diamond.GetComponent<Diamond>().gems = gems;
             Destroy(gameObject.GetComponent<BoxCollider2D>());
             Destroy(this.gameObject, 1.5f);
         }
@@ -56,10 +57,10 @@ public class Spider : Enemy, IDamageable
         GameObject acidToFire = AcidPool.Dequeue();
         acidToFire.transform.position = transform.position;
         acidToFire.SetActive(true);
-        StartCoroutine(DestroyAcid(acidToFire));
+        StartCoroutine(DestroyAcid(acidToFire, _acidDestroyTime));
     }
 
-    IEnumerator DestroyAcid(GameObject acid)
+    IEnumerator DestroyAcid(GameObject acid, float time)
     {
         yield return new WaitForSeconds(5f);
         acid.SetActive(false);

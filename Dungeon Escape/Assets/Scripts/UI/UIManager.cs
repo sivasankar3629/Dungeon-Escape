@@ -1,6 +1,8 @@
 using UnityEngine;
 using TMPro;
 using UnityEngine.UI;
+using System.Collections;
+using UnityEngine.SceneManagement;
 
 public class UIManager : MonoBehaviour
 {
@@ -27,6 +29,8 @@ public class UIManager : MonoBehaviour
     public Image selectionImage;
     public TMP_Text gemCountText;
     public Image[] healthBars;
+    public TMP_Text countDownText;
+    public bool gameOver = false;
 
     public void OpenShop( int gemCount)
     {
@@ -54,4 +58,34 @@ public class UIManager : MonoBehaviour
         }
     }
 
+    IEnumerator CountDown(int time)
+    {
+        while (time > 0)
+        {
+            yield return new WaitForSeconds(1f);
+            time--;
+            countDownText.text = $"TIME LEFT : {time}";
+        }
+        gameOver = true;
+    }
+
+    public void StartTimer(int time)
+    {
+        StartCoroutine(CountDown(time));
+    }
+
+    public void Menu()
+    {
+        SceneManager.LoadScene("Main Menu");
+    }
+
+    public void QuitGame()
+    {
+        Application.Quit();
+    }
+
+    public void Next()
+    {
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
+    }
 }

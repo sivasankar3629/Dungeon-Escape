@@ -1,9 +1,10 @@
+using NUnit.Framework;
 using UnityEngine;
 
 public class MossGiant : Enemy, IDamageable
 {
     public int Health {  get; set; }
-
+    
     // Use for initialization
     public override void Init()
     {
@@ -28,9 +29,11 @@ public class MossGiant : Enemy, IDamageable
         {
             anim.SetTrigger("Death");
             GameObject diamond = Instantiate(diamondPrefab, transform.position, Quaternion.identity);
-            diamond.GetComponent<Diamond>().gems = 5;
+            diamond.GetComponent<Diamond>().gems = gems;
             Destroy(gameObject.GetComponent<BoxCollider2D>());
             Destroy(this.gameObject, 1.5f);
         }
     }
+
+    
 }

@@ -51,15 +51,17 @@ public class Shop : MonoBehaviour
         }
     }
 
-    public void ButItem()
+    public void BuyItem()
     {
        if (_player._diamonds >= currentItemCost)
         {
-            if (currentSelectedItem == 2)
+            if (currentSelectedItem == 3)
             {
                 GameManager.Instance.HasKeyToCastle = true;
+                Debug.Log("Door Unlocked");
             }
             _player._diamonds -= currentItemCost;
+            UIManager.Instance.UpdateGemCount(_player._diamonds);
             shopPanel.SetActive(false);
         }
         else {

@@ -27,8 +27,11 @@ public class PlayerMovement : MonoBehaviour, IDamageable
 
     void Update()
     {
-        Move();
-        Jump();
+        if (!GameManager.Instance._gameOver)
+        {
+            Move();
+            Jump();
+        }
         if ( Input.GetMouseButtonDown(0) && IsGrounded())
         {
             _playerAnim.AttackAnim();
@@ -107,7 +110,15 @@ public class PlayerMovement : MonoBehaviour, IDamageable
         UIManager.Instance.UpdateLives(Health);
         if ( Health < 1 )
         {
-            _playerAnim.DeathAnim();
+            GameManager.Instance.GameLost();
+        }
+    }
+
+    private void OnTriggerEnter2D(Collider2D collider)
+    {
+        if (collider.CompareTag("Spikes"))
+        {
+            GameManager.Instance.GameLost();
         }
     }
 }
