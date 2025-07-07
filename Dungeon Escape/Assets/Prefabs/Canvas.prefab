@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 2987032287388509484}
   - component: {fileID: 4089839914708163557}
   - component: {fileID: 4686387530009766633}
+  - component: {fileID: 8229600040147453322}
   m_Layer: 5
   m_Name: B_Button
   m_TagString: Untagged
@@ -75,6 +76,19 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!114 &8229600040147453322
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 15136412177057115}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6d54531977ecb194c95e2d3aa7a5d72a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_ControlPath: <Gamepad>/buttonWest
 --- !u!1 &700722812342235109
 GameObject:
   m_ObjectHideFlags: 0
@@ -3135,7 +3149,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: Shop, Assembly-CSharp
-        m_MethodName: ButItem
+        m_MethodName: BuyItem
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -4108,6 +4122,7 @@ GameObject:
   - component: {fileID: 6113368636640733674}
   - component: {fileID: 2687134840305529981}
   - component: {fileID: 2279967639192849179}
+  - component: {fileID: 245549670422745981}
   m_Layer: 5
   m_Name: Joy_Stick
   m_TagString: Untagged
@@ -4131,7 +4146,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 215, y: 200}
+  m_AnchoredPosition: {x: 256, y: 256}
   m_SizeDelta: {x: 512, y: 512}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &2687134840305529981
@@ -4172,6 +4187,41 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!114 &245549670422745981
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8721909837305429612}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e9d677f1681015749b15c436eec6d880, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_MovementRange: 100
+  m_DynamicOriginRange: 100
+  m_ControlPath: <Gamepad>/leftStick
+  m_Behaviour: 0
+  m_UseIsolatedInputActions: 0
+  m_PointerDownAction:
+    m_Name: 
+    m_Type: 0
+    m_ExpectedControlType: 
+    m_Id: 9d493ee5-bbd4-4d05-9588-8b8f89b4a2f0
+    m_Processors: 
+    m_Interactions: 
+    m_SingletonActionBindings: []
+    m_Flags: 0
+  m_PointerMoveAction:
+    m_Name: 
+    m_Type: 0
+    m_ExpectedControlType: 
+    m_Id: a428655e-039f-4bfd-be52-f362b0320e9e
+    m_Processors: 
+    m_Interactions: 
+    m_SingletonActionBindings: []
+    m_Flags: 0
 --- !u!1 &8986982635618475601
 GameObject:
   m_ObjectHideFlags: 0

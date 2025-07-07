@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.InputSystem;
 using UnityEngine.Rendering.Universal;
 
 public class PlayerMovement : MonoBehaviour, IDamageable
@@ -13,6 +14,7 @@ public class PlayerMovement : MonoBehaviour, IDamageable
     [SerializeField] float _jumpForce = 5f;
     [SerializeField] Vector2 _boxSize;
     [SerializeField] float _castDistance;
+    private PlayerInputs _playerInputs;
 
     public int _diamonds = 0;
 
@@ -22,6 +24,8 @@ public class PlayerMovement : MonoBehaviour, IDamageable
     {
         _rb = GetComponent<Rigidbody2D>();
         _playerAnim = GetComponent<PlayerAnimation>();
+        _playerInputs = new PlayerInputs();
+        _playerInputs.Player.Enable();
         Health = 4;
     }
 
@@ -32,7 +36,7 @@ public class PlayerMovement : MonoBehaviour, IDamageable
             Move();
             Jump();
         }
-        if ( Input.GetMouseButtonDown(0) && IsGrounded())
+        if ( _playerInputs.Player.Attack.triggered && IsGrounded())
         {
             _playerAnim.AttackAnim();
         }
@@ -40,7 +44,7 @@ public class PlayerMovement : MonoBehaviour, IDamageable
 
     private void Move()
     {
-        float horizontalInput = Input.GetAxisRaw("Horizontal");
+        float horizontalInput = _playerInputs.Player.Move.ReadValue<Vector2>().x;
         Flip(horizontalInput);
 
         _playerAnim.MoveAnim(Mathf.Abs(horizontalInput));
@@ -74,7 +78,7 @@ public class PlayerMovement : MonoBehaviour, IDamageable
     private void Jump()
     {
         _playerAnim.JumpAnim(!IsGrounded());
-        if (Input.GetKeyDown(KeyCode.Space) && IsGrounded())
+        if (_playerInputs.Player.Move.ReadValue<Vector2>().y > 0.8 && IsGrounded())
         {
             _rb.linearVelocityY = _jumpForce;
         }
